@@ -1,0 +1,48 @@
+run:
+  timeout: 3m
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - staticcheck
+    - ineffassign
+    - revive
+    - gocritic
+    - gosec
+
+linters-settings:
+  revive:
+    rules:
+      - name: exported
+        severity: warning
+      - name: blank-imports
+        severity: warning
+      - name: context-as-argument
+        severity: warning
+      - name: dot-imports
+        severity: warning
+      - name: error-return
+        severity: warning
+      - name: error-strings
+        severity: warning
+      - name: increment-decrement
+        severity: warning
+      - name: var-naming
+        severity: warning
+      - name: package-comments
+        severity: warning
+
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - style
+
+  gosec:
+    excludes:
+      - G104  # Unhandled errors on deferred closes — handled case by case
+
+issues:
+  exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
