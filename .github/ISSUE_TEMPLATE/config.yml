@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability
+    url: https://github.com/navfa/stripe-payout-reconciler/security/advisories/new
+    about: Report security vulnerabilities privately through GitHub Security Advisories
