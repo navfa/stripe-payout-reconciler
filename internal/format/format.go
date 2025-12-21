@@ -19,7 +19,16 @@ type Formatter interface {
 // New returns a Formatter for the given format name ("csv", "json", "jsonl").
 // Returns an InvalidInputError for unrecognized or unimplemented formats.
 func New(formatName string) (Formatter, error) {
-	return nil, apperrors.NewInvalidInputError(
-		fmt.Sprintf("format %q is not yet implemented", formatName),
-	)
+	switch formatName {
+	case "csv":
+		return &csvFormatter{}, nil
+	case "json", "jsonl":
+		return nil, apperrors.NewInvalidInputError(
+			fmt.Sprintf("format %q is not yet implemented", formatName),
+		)
+	default:
+		return nil, apperrors.NewInvalidInputError(
+			fmt.Sprintf("unknown format %q", formatName),
+		)
+	}
 }
