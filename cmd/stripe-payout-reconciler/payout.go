@@ -3,17 +3,15 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
 	"os"
 	"os/signal"
 	"strings"
-	"time"
 
 	"github.com/spf13/cobra"
 
 	"github.com/paco/stripe-payout-reconciler/internal/config"
 	apperrors "github.com/paco/stripe-payout-reconciler/internal/errors"
-	"github.com/paco/stripe-payout-reconciler/internal/model"
+	"github.com/paco/stripe-payout-reconciler/internal/format"
 	stripeClient "github.com/paco/stripe-payout-reconciler/internal/stripe"
 )
 
@@ -25,10 +23,12 @@ var newStripeClient = func(apiKey string) stripeClient.Client {
 	return stripeClient.NewClient(apiKey)
 }
 
+var formatFlag string
+
 // newPayoutCmd creates the "payout" subcommand, which fetches and displays
 // balance transactions for a given Stripe payout.
 func newPayoutCmd() *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "payout <payout-id>",
 		Short: "Fetch and display balance transactions for a Stripe payout",
 		Long: `Fetches all balance transactions associated with the given Stripe payout
@@ -38,6 +38,12 @@ The payout ID must start with "po_" (e.g., po_1ABC2DEF3GHI).`,
 		Args: cobra.ExactArgs(1),
 		RunE: payoutRunE,
 	}
+
+	cmd.Flags().StringVar(&formatFlag, "format", "csv",
+		`output format: "csv", "json", or "jsonl"`,
+	)
+
+	return cmd
 }
 
 // payoutRunE validates the payout ID, resolves the API key, and fetches
@@ -77,26 +83,12 @@ func payoutRunE(_ *cobra.Command, args []string) error {
 		len(records),
 	)
 
-	printRecords(os.Stdout, records)
-
-	return nil
-}
-
-// printRecords writes records as tab-separated lines. This is a temporary
-// output format that will be replaced by the formatter in Epic 3.
-func printRecords(w io.Writer, records []model.Record) {
-	for _, r := range records {
-		fmt.Fprintf(w, "%s\t%s\t%s\t%d\t%d\t%d\t%s\t%s\n",
-			r.TransactionID,
-			r.Type,
-			r.Currency,
-			r.Amount,
-			r.Fee,
-			r.Net,
-			r.Created.Format(time.RFC3339),
-			r.Description,
-		)
+	formatter, err := format.New(formatFlag)
+	if err != nil {
+		return err
 	}
+
+	return formatter.Format(os.Stdout, records)
 }
 
 // validatePayoutID requires the "po_" prefix followed by at least one character.
