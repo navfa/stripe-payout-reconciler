@@ -109,8 +109,12 @@ func TestRedactAPIKey(t *testing.T) {
 }
 
 func TestPayoutRunE_Success(t *testing.T) {
-	original := newStripeClient
-	defer func() { newStripeClient = original }()
+	originalClient := newStripeClient
+	defer func() { newStripeClient = originalClient }()
+
+	originalFormat := formatFlag
+	defer func() { formatFlag = originalFormat }()
+	formatFlag = "csv"
 
 	mock := &stripeClient.MockClient{
 		FetchPayoutFn: func(_ context.Context, _ string) (model.Payout, error) {
