@@ -25,9 +25,7 @@ func New(formatName string) (Formatter, error) {
 	case "json":
 		return &jsonFormatter{}, nil
 	case "jsonl":
-		return nil, apperrors.NewInvalidInputError(
-			fmt.Sprintf("format %q is not yet implemented", formatName),
-		)
+		return &jsonlFormatter{}, nil
 	default:
 		return nil, apperrors.NewInvalidInputError(
 			fmt.Sprintf("unknown format %q", formatName),
