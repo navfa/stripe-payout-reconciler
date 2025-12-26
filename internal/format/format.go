@@ -22,7 +22,9 @@ func New(formatName string) (Formatter, error) {
 	switch formatName {
 	case "csv":
 		return &csvFormatter{}, nil
-	case "json", "jsonl":
+	case "json":
+		return &jsonFormatter{}, nil
+	case "jsonl":
 		return nil, apperrors.NewInvalidInputError(
 			fmt.Sprintf("format %q is not yet implemented", formatName),
 		)

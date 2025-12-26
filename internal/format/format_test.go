@@ -17,7 +17,7 @@ func TestNew(t *testing.T) {
 		errContains string
 	}{
 		{name: "csv returns formatter", formatName: "csv", wantErr: false},
-		{name: "json is not yet implemented", formatName: "json", wantErr: true, errContains: "not yet implemented"},
+		{name: "json returns formatter", formatName: "json", wantErr: false},
 		{name: "jsonl is not yet implemented", formatName: "jsonl", wantErr: true, errContains: "not yet implemented"},
 		{name: "unknown format returns error", formatName: "xml", wantErr: true, errContains: "unknown format"},
 	}
