@@ -78,6 +78,31 @@ func (c *apiClient) ListBalanceTransactions(ctx context.Context, payoutID string
 	return records, nil
 }
 
+func (c *apiClient) ListPayouts(ctx context.Context, from, to time.Time) ([]model.Payout, error) {
+	params := &stripe.PayoutListParams{}
+	params.CreatedRange = &stripe.RangeQueryParams{
+		GreaterThanOrEqual: from.Unix(),
+		LesserThan:         to.Unix(),
+	}
+	params.Limit = stripe.Int64(100)
+
+	var payouts []model.Payout
+	for p, err := range c.sc.V1Payouts.List(ctx, params) {
+		if err != nil {
+			return nil, translateError("payouts", err)
+		}
+		payouts = append(payouts, model.Payout{
+			ID:       p.ID,
+			Amount:   p.Amount,
+			Currency: string(p.Currency),
+			Created:  time.Unix(p.Created, 0),
+			Status:   string(p.Status),
+		})
+	}
+
+	return payouts, nil
+}
+
 // translateError converts a stripe-go error into the application's structured
 // error types by inspecting stripe.Error fields (Code, HTTPStatusCode).
 func translateError(resourceID string, err error) error {
