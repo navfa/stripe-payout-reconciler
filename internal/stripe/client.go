@@ -5,6 +5,7 @@ package stripe
 
 import (
 	"context"
+	"time"
 
 	"github.com/paco/stripe-payout-reconciler/internal/model"
 )
@@ -18,4 +19,8 @@ type Client interface {
 	// ListBalanceTransactions returns all balance transactions for a payout,
 	// handling pagination internally.
 	ListBalanceTransactions(ctx context.Context, payoutID string) ([]model.Record, error)
+
+	// ListPayouts returns all payouts created within [from, to), handling
+	// pagination internally. Both bounds are interpreted as exact timestamps.
+	ListPayouts(ctx context.Context, from, to time.Time) ([]model.Payout, error)
 }
