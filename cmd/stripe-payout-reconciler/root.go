@@ -16,6 +16,8 @@ func newRootCmd() *cobra.Command {
 		Long: `stripe-payout-reconciler fetches payout details from the Stripe API
 and outputs the associated balance transactions in a structured format
 (CSV, JSON, or JSONL) for reconciliation with your accounting records.`,
+		Example: `  stripe-payout-reconciler payout po_1ABC2DEF3GHI
+  stripe-payout-reconciler payout --from 2024-01-01 --to 2024-01-31 --format json`,
 		SilenceUsage:  true,
 		SilenceErrors: true,
 	}
