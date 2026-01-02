@@ -1,7 +1,9 @@
 # stripe-payout-reconciler
 
-[![CI](https://github.com/paco/stripe-payout-reconciler/actions/workflows/ci.yml/badge.svg)](https://github.com/paco/stripe-payout-reconciler/actions/workflows/ci.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/paco/stripe-payout-reconciler)](https://goreportcard.com/report/github.com/paco/stripe-payout-reconciler)
+[![CI](https://github.com/navfa/stripe-payout-reconciler/actions/workflows/ci.yml/badge.svg)](https://github.com/navfa/stripe-payout-reconciler/actions/workflows/ci.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/navfa/stripe-payout-reconciler)](https://goreportcard.com/report/github.com/navfa/stripe-payout-reconciler)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/navfa/stripe-payout-reconciler)](go.mod)
+[![Release](https://img.shields.io/github/v/release/navfa/stripe-payout-reconciler)](https://github.com/navfa/stripe-payout-reconciler/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 A command-line tool that fetches Stripe payouts and their balance transactions, outputting them in CSV, JSON, or JSONL for reconciliation with your accounting records.
@@ -11,12 +13,12 @@ A command-line tool that fetches Stripe payouts and their balance transactions, 
 ### From source
 
 ```sh
-go install github.com/paco/stripe-payout-reconciler/cmd/stripe-payout-reconciler@latest
+go install github.com/navfa/stripe-payout-reconciler/cmd/stripe-payout-reconciler@latest
 ```
 
 ### Pre-built binaries
 
-Download from [GitHub Releases](https://github.com/paco/stripe-payout-reconciler/releases). Binaries are available for Linux and macOS (amd64 and arm64).
+Download from [GitHub Releases](https://github.com/navfa/stripe-payout-reconciler/releases). Binaries are available for Linux and macOS (amd64 and arm64).
 
 ## Quick Start
 
@@ -123,9 +125,19 @@ cmd/stripe-payout-reconciler/   CLI entry point (Cobra commands)
 
 The `model` package imports nothing from the rest of the project. The `stripe` package encapsulates all stripe-go dependencies. Formatters depend only on `model`.
 
-## Contributing
+## Development
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
+```sh
+make build                                          # compile the binary
+make run ARGS="payout po_xxx --format json"         # build and run with arguments
+make test                                           # run tests with race detector
+make check                                          # fmt + tidy + verify + vet + lint + test
+make coverage                                       # test with coverage report
+make install                                        # install to $GOBIN
+make clean                                          # remove build artifacts
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for full development setup and guidelines.
 
 ## License
 
