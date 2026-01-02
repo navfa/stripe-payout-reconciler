@@ -7,7 +7,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/paco/stripe-payout-reconciler/internal/model"
+	"github.com/navfa/stripe-payout-reconciler/internal/model"
 )
 
 // Client fetches payout data from Stripe. Implementations must be safe

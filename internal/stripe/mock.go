@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/paco/stripe-payout-reconciler/internal/model"
+	"github.com/navfa/stripe-payout-reconciler/internal/model"
 )
 
 // MockClient is a test double for Client. Callers set the function fields

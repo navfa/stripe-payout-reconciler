@@ -9,7 +9,7 @@ package config
 import (
 	"os"
 
-	apperrors "github.com/paco/stripe-payout-reconciler/internal/errors"
+	apperrors "github.com/navfa/stripe-payout-reconciler/internal/errors"
 )
 
 const envKeyAPIKey = "STRIPE_API_KEY"

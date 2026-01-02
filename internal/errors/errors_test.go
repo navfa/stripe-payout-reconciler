@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	apperrors "github.com/paco/stripe-payout-reconciler/internal/errors"
+	apperrors "github.com/navfa/stripe-payout-reconciler/internal/errors"
 )
 
 func TestExitCode(t *testing.T) {

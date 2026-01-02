@@ -5,7 +5,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/paco/stripe-payout-reconciler/internal/model"
+	"github.com/navfa/stripe-payout-reconciler/internal/model"
 )
 
 // csvFormatter writes records as CSV with a header row.

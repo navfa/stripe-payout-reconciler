@@ -10,11 +10,11 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/paco/stripe-payout-reconciler/internal/config"
-	apperrors "github.com/paco/stripe-payout-reconciler/internal/errors"
-	"github.com/paco/stripe-payout-reconciler/internal/format"
-	"github.com/paco/stripe-payout-reconciler/internal/model"
-	stripeClient "github.com/paco/stripe-payout-reconciler/internal/stripe"
+	"github.com/navfa/stripe-payout-reconciler/internal/config"
+	apperrors "github.com/navfa/stripe-payout-reconciler/internal/errors"
+	"github.com/navfa/stripe-payout-reconciler/internal/format"
+	"github.com/navfa/stripe-payout-reconciler/internal/model"
+	stripeClient "github.com/navfa/stripe-payout-reconciler/internal/stripe"
 )
 
 const payoutIDPrefix = "po_"

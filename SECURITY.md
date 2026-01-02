@@ -10,7 +10,7 @@
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
-Instead, please report them through [GitHub Security Advisories](https://github.com/paco/stripe-payout-reconciler/security/advisories/new).
+Instead, please report them through [GitHub Security Advisories](https://github.com/navfa/stripe-payout-reconciler/security/advisories/new).
 
 You should receive a response within 48 hours. If the issue is confirmed, a patch will be released as soon as possible, typically within a few days depending on severity.
 
