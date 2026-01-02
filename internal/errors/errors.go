@@ -10,7 +10,10 @@
 // a human-friendly string safe to print to stderr.
 package errors
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // Exit codes returned by the CLI process. Each error type maps to exactly one
 // exit code, giving callers a reliable way to distinguish failure categories
@@ -30,14 +33,19 @@ func ExitCode(err error) int {
 		return 0
 	}
 
-	switch err.(type) {
-	case *InvalidInputError:
+	var inputErr *InvalidInputError
+	var authErr *AuthError
+	var nfErr *NotFoundError
+	var rlErr *RateLimitError
+
+	switch {
+	case errors.As(err, &inputErr):
 		return ExitInvalidInput
-	case *AuthError:
+	case errors.As(err, &authErr):
 		return ExitAuth
-	case *NotFoundError:
+	case errors.As(err, &nfErr):
 		return ExitNotFound
-	case *RateLimitError:
+	case errors.As(err, &rlErr):
 		return ExitRateLimit
 	default:
 		return ExitInternal

@@ -1,9 +1,11 @@
 package stripe
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"net/http"
+	"strings"
 	"testing"
 
 	"github.com/stripe/stripe-go/v82"
@@ -37,9 +39,24 @@ func TestMapTransactionType(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.stripeType, func(t *testing.T) {
+			var buf bytes.Buffer
+			origWriter := warnWriter
+			warnWriter = &buf
+			defer func() { warnWriter = origWriter }()
+
 			got := mapTransactionType(tt.stripeType)
 			if got != tt.want {
 				t.Errorf("mapTransactionType(%q) = %q, want %q", tt.stripeType, got, tt.want)
+			}
+
+			if tt.want == model.RecordTypeOther {
+				if !strings.Contains(buf.String(), "unknown balance transaction type") {
+					t.Errorf("expected warning for unknown type %q, got %q", tt.stripeType, buf.String())
+				}
+			} else {
+				if buf.Len() > 0 {
+					t.Errorf("unexpected warning for known type %q: %q", tt.stripeType, buf.String())
+				}
 			}
 		})
 	}

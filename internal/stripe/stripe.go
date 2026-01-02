@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"time"
 
@@ -129,6 +130,10 @@ func translateError(resourceID string, err error) error {
 	return fmt.Errorf("stripe request failed for %s: %w", resourceID, err)
 }
 
+// warnWriter is the destination for diagnostic warnings. Tests can override
+// this to capture warning output.
+var warnWriter io.Writer = os.Stderr
+
 // mapTransactionType converts a Stripe balance transaction type string
 // to the application's RecordType.
 func mapTransactionType(t string) model.RecordType {
@@ -144,7 +149,7 @@ func mapTransactionType(t string) model.RecordType {
 	case "adjustment":
 		return model.RecordTypeAdjustment
 	default:
-		fmt.Fprintf(os.Stderr, "warning: unknown balance transaction type %q, mapped to %q\n", t, model.RecordTypeOther)
+		fmt.Fprintf(warnWriter, "warning: unknown balance transaction type %q, mapped to %q\n", t, model.RecordTypeOther)
 		return model.RecordTypeOther
 	}
 }
