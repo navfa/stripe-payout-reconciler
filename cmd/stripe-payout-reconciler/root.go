@@ -10,8 +10,9 @@ var apiKeyFlag string
 // persistent flag and all subcommands.
 func newRootCmd() *cobra.Command {
 	rootCmd := &cobra.Command{
-		Use:   "stripe-payout-reconciler",
-		Short: "Reconcile Stripe payouts with their balance transactions",
+		Use:     "stripe-payout-reconciler",
+		Short:   "Reconcile Stripe payouts with their balance transactions",
+		Version: version,
 		Long: `stripe-payout-reconciler fetches payout details from the Stripe API
 and outputs the associated balance transactions in a structured format
 (CSV, JSON, or JSONL) for reconciliation with your accounting records.`,
