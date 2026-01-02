@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	apperrors "github.com/paco/stripe-payout-reconciler/internal/errors"
-	"github.com/paco/stripe-payout-reconciler/internal/format"
+	apperrors "github.com/navfa/stripe-payout-reconciler/internal/errors"
+	"github.com/navfa/stripe-payout-reconciler/internal/format"
 )
 
 func TestNew(t *testing.T) {

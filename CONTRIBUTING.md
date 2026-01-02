@@ -11,7 +11,7 @@ Thanks for your interest in contributing to stripe-payout-reconciler!
 ## Development Setup
 
 ```sh
-git clone https://github.com/paco/stripe-payout-reconciler.git
+git clone https://github.com/navfa/stripe-payout-reconciler.git
 cd stripe-payout-reconciler
 make build
 make test

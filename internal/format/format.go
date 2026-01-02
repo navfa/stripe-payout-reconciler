@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"io"
 
-	apperrors "github.com/paco/stripe-payout-reconciler/internal/errors"
-	"github.com/paco/stripe-payout-reconciler/internal/model"
+	apperrors "github.com/navfa/stripe-payout-reconciler/internal/errors"
+	"github.com/navfa/stripe-payout-reconciler/internal/model"
 )
 
 // Formatter writes records to a writer in a specific output format

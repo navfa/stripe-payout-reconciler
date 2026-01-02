@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io"
 
-	"github.com/paco/stripe-payout-reconciler/internal/model"
+	"github.com/navfa/stripe-payout-reconciler/internal/model"
 )
 
 // jsonlFormatter writes one JSON object per line (JSON Lines format).

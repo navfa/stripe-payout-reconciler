@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/paco/stripe-payout-reconciler/internal/model"
+	"github.com/navfa/stripe-payout-reconciler/internal/model"
 )
 
 func TestJSONLFormatter_Format(t *testing.T) {

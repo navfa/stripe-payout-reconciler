@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	apperrors "github.com/paco/stripe-payout-reconciler/internal/errors"
+	apperrors "github.com/navfa/stripe-payout-reconciler/internal/errors"
 )
 
 // version is set at build time via ldflags. Development builds show "dev".

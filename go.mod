@@ -1,4 +1,4 @@
-module github.com/paco/stripe-payout-reconciler
+module github.com/navfa/stripe-payout-reconciler
 
 go 1.26.0
 

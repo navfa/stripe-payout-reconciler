@@ -5,7 +5,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/paco/stripe-payout-reconciler/internal/model"
+	"github.com/navfa/stripe-payout-reconciler/internal/model"
 )
 
 // jsonRecord is the serialization shape shared by the JSON and JSONL formatters.

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/paco/stripe-payout-reconciler/internal/config"
-	apperrors "github.com/paco/stripe-payout-reconciler/internal/errors"
+	"github.com/navfa/stripe-payout-reconciler/internal/config"
+	apperrors "github.com/navfa/stripe-payout-reconciler/internal/errors"
 )
 
 func TestLoad(t *testing.T) {

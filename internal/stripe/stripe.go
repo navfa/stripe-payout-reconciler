@@ -9,8 +9,8 @@ import (
 
 	"github.com/stripe/stripe-go/v82"
 
-	apperrors "github.com/paco/stripe-payout-reconciler/internal/errors"
-	"github.com/paco/stripe-payout-reconciler/internal/model"
+	apperrors "github.com/navfa/stripe-payout-reconciler/internal/errors"
+	"github.com/navfa/stripe-payout-reconciler/internal/model"
 )
 
 // apiClient implements Client using the stripe-go SDK with a per-instance
