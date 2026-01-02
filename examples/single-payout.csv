@@ -1,0 +1,7 @@
+payout_id,transaction_id,type,amount,fee,net,currency,created,description
+po_1N2xR3yT4zA,txn_5B6cD7eF8gH,charge,250.00,7.55,242.45,usd,2024-01-14T09:12:33Z,Payment for invoice #1042
+po_1N2xR3yT4zA,txn_9I0jK1lM2nO,charge,89.99,2.90,87.09,usd,2024-01-14T11:45:07Z,Subscription renewal
+po_1N2xR3yT4zA,txn_3P4qR5sT6uV,refund,-50.00,0.00,-50.00,usd,2024-01-14T14:22:19Z,Refund for order #987
+po_1N2xR3yT4zA,txn_7W8xY9zA0bC,charge,175.00,5.38,169.62,usd,2024-01-15T08:03:41Z,Payment for invoice #1043
+po_1N2xR3yT4zA,txn_1D2eF3gH4iJ,stripe_fee,0.00,0.25,-0.25,usd,2024-01-15T00:00:00Z,Stripe payout fee
+po_1N2xR3yT4zA,txn_5K6lM7nO8pQ,payout,-448.91,0.00,-448.91,usd,2024-01-15T16:00:00Z,STRIPE PAYOUT

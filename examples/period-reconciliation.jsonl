@@ -1,0 +1,9 @@
+{"payout_id":"po_1N2xR3yT4zA","transaction_id":"txn_5B6cD7eF8gH","type":"charge","amount":"250.00","fee":"7.55","net":"242.45","currency":"usd","created":"2024-01-14T09:12:33Z","description":"Payment for invoice #1042"}
+{"payout_id":"po_1N2xR3yT4zA","transaction_id":"txn_9I0jK1lM2nO","type":"charge","amount":"89.99","fee":"2.90","net":"87.09","currency":"usd","created":"2024-01-14T11:45:07Z","description":"Subscription renewal"}
+{"payout_id":"po_1N2xR3yT4zA","transaction_id":"txn_3P4qR5sT6uV","type":"refund","amount":"-50.00","fee":"0.00","net":"-50.00","currency":"usd","created":"2024-01-14T14:22:19Z","description":"Refund for order #987"}
+{"payout_id":"po_1N2xR3yT4zA","transaction_id":"txn_7W8xY9zA0bC","type":"charge","amount":"175.00","fee":"5.38","net":"169.62","currency":"usd","created":"2024-01-15T08:03:41Z","description":"Payment for invoice #1043"}
+{"payout_id":"po_1N2xR3yT4zA","transaction_id":"txn_1D2eF3gH4iJ","type":"stripe_fee","amount":"0.00","fee":"0.25","net":"-0.25","currency":"usd","created":"2024-01-15T00:00:00Z","description":"Stripe payout fee"}
+{"payout_id":"po_1N2xR3yT4zA","transaction_id":"txn_5K6lM7nO8pQ","type":"payout","amount":"-448.91","fee":"0.00","net":"-448.91","currency":"usd","created":"2024-01-15T16:00:00Z","description":"STRIPE PAYOUT"}
+{"payout_id":"po_2A3bC4dE5fG","transaction_id":"txn_6H7iJ8kL9mN","type":"charge","amount":"320.00","fee":"9.58","net":"310.42","currency":"usd","created":"2024-01-16T10:30:15Z","description":"Payment for invoice #1044"}
+{"payout_id":"po_2A3bC4dE5fG","transaction_id":"txn_0O1pQ2rS3tU","type":"charge","amount":"64.50","fee":"2.17","net":"62.33","currency":"usd","created":"2024-01-16T15:42:08Z","description":"One-time purchase"}
+{"payout_id":"po_2A3bC4dE5fG","transaction_id":"txn_4V5wX6yZ7aB","type":"payout","amount":"-372.75","fee":"0.00","net":"-372.75","currency":"usd","created":"2024-01-17T16:00:00Z","description":"STRIPE PAYOUT"}
