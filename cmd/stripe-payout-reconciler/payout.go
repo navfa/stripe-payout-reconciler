@@ -46,6 +46,17 @@ Two modes of operation:
 
 The payout ID and --from/--to flags are mutually exclusive.
 Dates are interpreted as UTC (YYYY-MM-DD format).`,
+		Example: `  # Reconcile a single payout to CSV (default)
+  stripe-payout-reconciler payout po_1ABC2DEF3GHI
+
+  # Export as JSON
+  stripe-payout-reconciler payout po_1ABC2DEF3GHI --format json
+
+  # Reconcile all payouts in January 2024
+  stripe-payout-reconciler payout --from 2024-01-01 --to 2024-01-31
+
+  # Pipe JSONL to jq for filtering
+  stripe-payout-reconciler payout po_1ABC2DEF3GHI --format jsonl | jq 'select(.type == "charge")'`,
 		Args: cobra.MaximumNArgs(1),
 		RunE: payoutRunE,
 	}
