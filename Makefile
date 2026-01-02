@@ -3,8 +3,10 @@
 BINARY := stripe-payout-reconciler
 CMD    := ./cmd/$(BINARY)
 
+VERSION ?= dev
+
 build:
-	go build -trimpath -o $(BINARY) $(CMD)
+	go build -trimpath -ldflags "-X main.version=$(VERSION)" -o $(BINARY) $(CMD)
 
 test:
 	go test -race ./...

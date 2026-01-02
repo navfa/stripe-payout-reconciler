@@ -8,6 +8,9 @@ import (
 	apperrors "github.com/paco/stripe-payout-reconciler/internal/errors"
 )
 
+// version is set at build time via ldflags. Development builds show "dev".
+var version = "dev"
+
 func main() {
 	if err := run(); err != nil {
 		printError(err)
