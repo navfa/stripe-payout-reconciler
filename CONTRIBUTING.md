@@ -4,7 +4,7 @@ Thanks for your interest in contributing to stripe-payout-reconciler!
 
 ## Prerequisites
 
-- Go 1.23 or later
+- Go 1.26 or later
 - A Stripe test-mode API key (for integration testing)
 - [golangci-lint](https://golangci-lint.run/) (for linting)
 
