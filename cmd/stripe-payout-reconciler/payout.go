@@ -234,13 +234,3 @@ func validatePayoutID(payoutID string) error {
 
 	return nil
 }
-
-// redactAPIKey returns a safe-to-log preview showing only the first 8
-// characters, enough to distinguish sk_test_ from sk_live_.
-func redactAPIKey(apiKey string) string {
-	const visiblePrefix = 8
-	if len(apiKey) <= visiblePrefix {
-		return "***"
-	}
-	return apiKey[:visiblePrefix] + "..."
-}

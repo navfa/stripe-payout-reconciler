@@ -71,44 +71,6 @@ func TestValidatePayoutID(t *testing.T) {
 	}
 }
 
-func TestRedactAPIKey(t *testing.T) {
-	tests := []struct {
-		name   string
-		apiKey string
-		want   string
-	}{
-		{
-			name:   "long key shows first 8 chars",
-			apiKey: "sk_test_1234567890abcdef",
-			want:   "sk_test_...",
-		},
-		{
-			name:   "short key is fully redacted",
-			apiKey: "short",
-			want:   "***",
-		},
-		{
-			name:   "exactly 8 chars is fully redacted",
-			apiKey: "12345678",
-			want:   "***",
-		},
-		{
-			name:   "9 chars shows first 8",
-			apiKey: "123456789",
-			want:   "12345678...",
-		},
-	}
-
-	for _, testCase := range tests {
-		t.Run(testCase.name, func(t *testing.T) {
-			got := redactAPIKey(testCase.apiKey)
-			if got != testCase.want {
-				t.Errorf("redactAPIKey(%q) = %q, want %q", testCase.apiKey, got, testCase.want)
-			}
-		})
-	}
-}
-
 func TestPayoutRunE_Success(t *testing.T) {
 	originalClient := newStripeClient
 	defer func() { newStripeClient = originalClient }()

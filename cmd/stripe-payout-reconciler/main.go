@@ -2,6 +2,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -31,7 +32,8 @@ func printError(err error) {
 		UserMessage() string
 	}
 
-	if messager, ok := err.(userMessager); ok {
+	var messager userMessager
+	if errors.As(err, &messager) {
 		fmt.Fprintln(os.Stderr, "Error:", messager.UserMessage())
 		return
 	}
