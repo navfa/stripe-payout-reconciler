@@ -21,9 +21,7 @@ const payoutIDPrefix = "po_"
 
 // newStripeClient is the constructor used by payoutRunE. Tests override this
 // to inject a MockClient.
-var newStripeClient = func(apiKey string) stripeClient.Client {
-	return stripeClient.NewClient(apiKey)
-}
+var newStripeClient func(string) stripeClient.Client = stripeClient.NewClient
 
 var (
 	formatFlag string

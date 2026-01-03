@@ -43,6 +43,9 @@ linters:
     gosec:
       excludes:
         - G104  # Unhandled errors on deferred closes — handled case by case
+        - G101  # False positives on API key field names and test fixtures
+        - G117  # False positives on exported struct fields matching "secret" patterns
+        - G602  # False positive on slice index after length check
 
 issues:
   max-issues-per-linter: 0

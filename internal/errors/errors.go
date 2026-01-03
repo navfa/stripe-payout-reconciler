@@ -125,12 +125,12 @@ func (e *NotFoundError) Unwrap() error    { return e.Err }
 func (e *NotFoundError) UserMessage() string { return e.Message }
 
 // NewNotFoundError returns an error for a missing Stripe resource.
-func NewNotFoundError(message string, resourceID string) *NotFoundError {
+func NewNotFoundError(message, resourceID string) *NotFoundError {
 	return &NotFoundError{Message: message, ResourceID: resourceID}
 }
 
 // WrapNotFoundError returns a NotFoundError wrapping cause.
-func WrapNotFoundError(message string, resourceID string, err error) *NotFoundError {
+func WrapNotFoundError(message, resourceID string, err error) *NotFoundError {
 	return &NotFoundError{Message: message, ResourceID: resourceID, Err: err}
 }
 

@@ -149,7 +149,7 @@ func mapTransactionType(t string) model.RecordType {
 	case "adjustment":
 		return model.RecordTypeAdjustment
 	default:
-		fmt.Fprintf(warnWriter, "warning: unknown balance transaction type %q, mapped to %q\n", t, model.RecordTypeOther)
+		_, _ = fmt.Fprintf(warnWriter, "warning: unknown balance transaction type %q, mapped to %q\n", t, model.RecordTypeOther)
 		return model.RecordTypeOther
 	}
 }
