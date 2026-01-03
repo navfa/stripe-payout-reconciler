@@ -45,6 +45,5 @@ linters:
         - G104  # Unhandled errors on deferred closes — handled case by case
 
 issues:
-  exclude-use-default: false
   max-issues-per-linter: 0
   max-same-issues: 0
