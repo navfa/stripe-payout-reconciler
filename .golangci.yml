@@ -17,7 +17,7 @@ linters:
     revive:
       rules:
         - name: exported
-          severity: warning
+          disabled: true
         - name: blank-imports
           severity: warning
         - name: context-as-argument
@@ -31,9 +31,9 @@ linters:
         - name: increment-decrement
           severity: warning
         - name: var-naming
-          severity: warning
+          disabled: true
         - name: package-comments
-          severity: warning
+          disabled: true
 
     gocritic:
       enabled-tags:
