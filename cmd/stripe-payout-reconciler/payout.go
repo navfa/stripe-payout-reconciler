@@ -177,21 +177,21 @@ func runPeriodReconciliation(ctx context.Context, client stripeClient.Client) er
 
 func printSummary(w io.Writer, summaries []model.Summary) {
 	for _, s := range summaries {
-		fmt.Fprintf(w, "\n")
+		_, _ = fmt.Fprintf(w, "\n")
 		cur := strings.ToUpper(s.Currency)
 		for _, ts := range s.ByType {
 			if ts.Count == 0 {
 				continue
 			}
-			fmt.Fprintf(w, "  %-14s %12s %s  (%d txn)\n",
+			_, _ = fmt.Fprintf(w, "  %-14s %12s %s  (%d txn)\n",
 				ts.Type,
 				format.FormatAmount(ts.Net, s.Currency),
 				cur,
 				ts.Count,
 			)
 		}
-		fmt.Fprintf(w, "  %-14s %12s %s\n", "───────────────", "────────────", "───")
-		fmt.Fprintf(w, "  %-14s %12s %s\n\n", "net", format.FormatAmount(s.Total.Net, s.Currency), cur)
+		_, _ = fmt.Fprintf(w, "  %-14s %12s %s\n", "───────────────", "────────────", "───")
+		_, _ = fmt.Fprintf(w, "  %-14s %12s %s\n\n", "net", format.FormatAmount(s.Total.Net, s.Currency), cur)
 	}
 }
 
