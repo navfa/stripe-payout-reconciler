@@ -55,6 +55,9 @@ Dates are interpreted as UTC (YYYY-MM-DD format).`,
   # Reconcile all payouts in January 2024
   stripe-payout-reconciler payout --from 2024-01-01 --to 2024-01-31
 
+  # Show aggregated breakdown by transaction type
+  stripe-payout-reconciler payout po_1ABC2DEF3GHI --summary
+
   # Pipe JSONL to jq for filtering
   stripe-payout-reconciler payout po_1ABC2DEF3GHI --format jsonl | jq 'select(.type == "charge")'`,
 		Args: cobra.MaximumNArgs(1),

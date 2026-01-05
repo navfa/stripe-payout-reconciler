@@ -32,6 +32,9 @@ stripe-payout-reconciler payout po_1ABC2DEF3GHI
 # Export a month of payouts as JSON
 stripe-payout-reconciler payout --from 2024-01-01 --to 2024-01-31 --format json
 
+# Show aggregated breakdown by transaction type
+stripe-payout-reconciler payout po_1ABC2DEF3GHI --summary
+
 # Pipe JSONL to jq for filtering
 stripe-payout-reconciler payout po_1ABC2DEF3GHI --format jsonl | jq 'select(.type == "charge")'
 ```
@@ -62,6 +65,7 @@ Fetches all payouts in the date range and outputs their combined transactions. D
 | `--format` | `csv` | Output format: `csv`, `json`, or `jsonl` |
 | `--from` | | Start date, inclusive (UTC, `YYYY-MM-DD`) |
 | `--to` | | End date, inclusive (UTC, `YYYY-MM-DD`) |
+| `--summary` | `false` | Print aggregated breakdown by transaction type to stderr |
 
 ### Configuration
 
@@ -110,6 +114,39 @@ po_abc123,txn_def456,charge,150.00,4.35,145.65,usd,2024-01-15T14:30:00Z,Payment 
 ```
 
 Amounts are formatted as decimal strings (not floats) to avoid rounding errors in financial data. Zero-decimal currencies like JPY are output as integers.
+
+### Summary
+
+Use `--summary` to print an aggregated breakdown by transaction type to stderr:
+
+```sh
+stripe-payout-reconciler payout po_1ABC2DEF3GHI --summary
+```
+
+```
+Payout po_1ABC2DEF3GHI: USD 1112155 (paid) — 47 transactions
+
+  charge          12345.00 USD  (32 txn)
+  refund           -450.00 USD  (3 txn)
+  dispute          -200.00 USD  (1 txn)
+  fee              -623.45 USD  (10 txn)
+  other              50.00 USD  (1 txn)
+  ───────────────  ──────────── ───
+  net            11121.55 USD
+
+payout_id,transaction_id,type,amount,fee,net,currency,created,description
+...
+```
+
+The summary goes to stderr so it doesn't interfere with data pipelines. Combine with any format:
+
+```sh
+# Summary + JSON output to file
+stripe-payout-reconciler payout po_1ABC2DEF3GHI --summary --format json > payout.json
+
+# Period summary
+stripe-payout-reconciler payout --from 2024-01-01 --to 2024-01-31 --summary
+```
 
 ## Architecture
 
