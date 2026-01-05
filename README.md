@@ -174,6 +174,22 @@ make install                                        # install to $GOBIN
 make clean                                          # remove build artifacts
 ```
 
+### Testing with a Stripe test account
+
+A seed script creates sample transactions (charges + refund) on your Stripe test account:
+
+```sh
+export STRIPE_API_KEY=sk_test_...
+
+# Create test data (4 charges + 1 refund)
+make seed
+
+# Wait ~2 days for Stripe to bundle them into a payout, then reconcile
+make run ARGS="payout --from 2024-01-01 --to 2024-12-31 --summary"
+```
+
+The script requires `curl` and `python3` (both pre-installed on macOS).
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) for full development setup and guidelines.
 
 ## License

@@ -1,4 +1,4 @@
-.PHONY: build test lint vet fmt tidy verify clean run install check coverage
+.PHONY: build test lint vet fmt tidy verify clean run install check coverage seed
 
 BINARY := stripe-payout-reconciler
 CMD    := ./cmd/$(BINARY)
@@ -41,6 +41,9 @@ verify:
 	go mod verify
 
 check: fmt tidy verify vet lint test
+
+seed:
+	./scripts/seed-test-data.sh
 
 clean:
 	rm -f $(BINARY)
