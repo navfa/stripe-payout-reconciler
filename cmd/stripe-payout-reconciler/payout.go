@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"io"
 	"os"
 	"os/signal"
 	"strings"
@@ -24,9 +25,10 @@ const payoutIDPrefix = "po_"
 var newStripeClient func(string) stripeClient.Client = stripeClient.NewClient
 
 var (
-	formatFlag string
-	fromFlag   string
-	toFlag     string
+	formatFlag  string
+	fromFlag    string
+	toFlag      string
+	summaryFlag bool
 )
 
 // newPayoutCmd creates the "payout" subcommand, which fetches and displays
@@ -67,6 +69,9 @@ Dates are interpreted as UTC (YYYY-MM-DD format).`,
 	)
 	cmd.Flags().StringVar(&toFlag, "to", "",
 		"end date (inclusive, UTC, YYYY-MM-DD)",
+	)
+	cmd.Flags().BoolVar(&summaryFlag, "summary", false,
+		"print aggregated breakdown by transaction type to stderr",
 	)
 
 	return cmd
@@ -114,6 +119,10 @@ func runSinglePayout(ctx context.Context, client stripeClient.Client, payoutID s
 		len(records),
 	)
 
+	if summaryFlag {
+		printSummary(os.Stderr, model.Summarize(records))
+	}
+
 	formatter, err := format.New(formatFlag)
 	if err != nil {
 		return err
@@ -151,12 +160,36 @@ func runPeriodReconciliation(ctx context.Context, client stripeClient.Client) er
 
 	fmt.Fprintf(os.Stderr, "%d payouts, %d transactions\n", len(payouts), len(allRecords))
 
+	if summaryFlag {
+		printSummary(os.Stderr, model.Summarize(allRecords))
+	}
+
 	formatter, err := format.New(formatFlag)
 	if err != nil {
 		return err
 	}
 
 	return formatter.Format(os.Stdout, allRecords)
+}
+
+func printSummary(w io.Writer, summaries []model.Summary) {
+	for _, s := range summaries {
+		fmt.Fprintf(w, "\n")
+		cur := strings.ToUpper(s.Currency)
+		for _, ts := range s.ByType {
+			if ts.Count == 0 {
+				continue
+			}
+			fmt.Fprintf(w, "  %-14s %12s %s  (%d txn)\n",
+				ts.Type,
+				format.FormatAmount(ts.Net, s.Currency),
+				cur,
+				ts.Count,
+			)
+		}
+		fmt.Fprintf(w, "  %-14s %12s %s\n", "───────────────", "────────────", "───")
+		fmt.Fprintf(w, "  %-14s %12s %s\n\n", "net", format.FormatAmount(s.Total.Net, s.Currency), cur)
+	}
 }
 
 // validatePayoutFlags enforces mutual exclusivity between the positional

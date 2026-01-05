@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"strings"
@@ -362,6 +363,29 @@ func TestPeriodReconciliation_Success(t *testing.T) {
 	err := payoutRunE(nil, []string{})
 	if err != nil {
 		t.Fatalf("payoutRunE() returned unexpected error: %v", err)
+	}
+}
+
+func TestPrintSummary(t *testing.T) {
+	summaries := model.Summarize([]model.Record{
+		{Type: model.RecordTypeCharge, Amount: 10000, Fee: 300, Net: 9700, Currency: "usd"},
+		{Type: model.RecordTypeCharge, Amount: 5000, Fee: 150, Net: 4850, Currency: "usd"},
+		{Type: model.RecordTypeRefund, Amount: -2000, Fee: 0, Net: -2000, Currency: "usd"},
+		{Type: model.RecordTypeFee, Amount: -450, Fee: 0, Net: -450, Currency: "usd"},
+	})
+
+	var buf bytes.Buffer
+	printSummary(&buf, summaries)
+	output := buf.String()
+
+	for _, want := range []string{"charge", "refund", "fee", "net", "USD"} {
+		if !strings.Contains(output, want) {
+			t.Errorf("printSummary output missing %q, got:\n%s", want, output)
+		}
+	}
+
+	if !strings.Contains(output, "121.00") {
+		t.Errorf("printSummary output missing net total 121.00, got:\n%s", output)
 	}
 }
 
