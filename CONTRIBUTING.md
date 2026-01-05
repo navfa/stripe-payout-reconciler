@@ -49,7 +49,7 @@ chore: maintenance tasks
 2. Create a feature branch (`git checkout -b feat/my-feature`)
 3. Make your changes with tests
 4. Ensure CI passes: `make test && make vet && make lint`
-5. Open a pull request against `main`
+5. Open a pull request against `master`
 
 ## Security
 
