@@ -52,8 +52,7 @@ func TestLoad(t *testing.T) {
 				if err == nil {
 					t.Fatal("Load() returned nil error, want error")
 				}
-				var inputErr *apperrors.InvalidInputError
-				if !errors.As(err, &inputErr) {
+				if _, ok := errors.AsType[*apperrors.InvalidInputError](err); !ok {
 					t.Errorf("Load() error type = %T, want *errors.InvalidInputError", err)
 				}
 				return

@@ -58,8 +58,7 @@ func TestValidatePayoutID(t *testing.T) {
 				if err == nil {
 					t.Fatal("validatePayoutID() returned nil error, want error")
 				}
-				var inputErr *apperrors.InvalidInputError
-				if !errors.As(err, &inputErr) {
+				if _, ok := errors.AsType[*apperrors.InvalidInputError](err); !ok {
 					t.Errorf("error type = %T, want *errors.InvalidInputError", err)
 				}
 				return
@@ -137,8 +136,7 @@ func TestPayoutRunE_NotFound(t *testing.T) {
 		t.Fatal("payoutRunE() returned nil error, want NotFoundError")
 	}
 
-	var nfErr *apperrors.NotFoundError
-	if !errors.As(err, &nfErr) {
+	if _, ok := errors.AsType[*apperrors.NotFoundError](err); !ok {
 		t.Errorf("error type = %T, want *NotFoundError", err)
 	}
 }
@@ -164,8 +162,7 @@ func TestPayoutRunE_AuthError(t *testing.T) {
 		t.Fatal("payoutRunE() returned nil error, want AuthError")
 	}
 
-	var authErr *apperrors.AuthError
-	if !errors.As(err, &authErr) {
+	if _, ok := errors.AsType[*apperrors.AuthError](err); !ok {
 		t.Errorf("error type = %T, want *AuthError", err)
 	}
 }
@@ -306,8 +303,7 @@ func TestValidatePayoutFlags(t *testing.T) {
 				if err == nil {
 					t.Fatal("validatePayoutFlags() returned nil error, want error")
 				}
-				var inputErr *apperrors.InvalidInputError
-				if !errors.As(err, &inputErr) {
+				if _, ok := errors.AsType[*apperrors.InvalidInputError](err); !ok {
 					t.Errorf("error type = %T, want *errors.InvalidInputError", err)
 				}
 				if !strings.Contains(err.Error(), testCase.errContains) {

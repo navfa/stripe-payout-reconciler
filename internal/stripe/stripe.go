@@ -111,8 +111,7 @@ func translateError(resourceID string, err error) error {
 		return nil
 	}
 
-	var stripeErr *stripe.Error
-	if errors.As(err, &stripeErr) {
+	if stripeErr, ok := errors.AsType[*stripe.Error](err); ok {
 		switch stripeErr.HTTPStatusCode {
 		case 401, 403:
 			return apperrors.WrapAuthError("authentication failed: check your Stripe API key", err)

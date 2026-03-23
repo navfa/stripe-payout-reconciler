@@ -29,11 +29,11 @@ func run() error {
 // UserMessage() when available.
 func printError(err error) {
 	type userMessager interface {
+		error
 		UserMessage() string
 	}
 
-	var messager userMessager
-	if errors.As(err, &messager) {
+	if messager, ok := errors.AsType[userMessager](err); ok {
 		fmt.Fprintln(os.Stderr, "Error:", messager.UserMessage())
 		return
 	}

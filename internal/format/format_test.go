@@ -34,8 +34,7 @@ func TestNew(t *testing.T) {
 					t.Errorf("New() returned non-nil formatter, want nil")
 				}
 
-				var inputErr *apperrors.InvalidInputError
-				if !errors.As(err, &inputErr) {
+				if _, ok := errors.AsType[*apperrors.InvalidInputError](err); !ok {
 					t.Errorf("New() error type = %T, want *errors.InvalidInputError", err)
 				}
 

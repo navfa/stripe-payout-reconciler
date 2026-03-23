@@ -123,25 +123,22 @@ func TestTranslateError(t *testing.T) {
 
 			switch tt.wantType {
 			case "auth":
-				var authErr *apperrors.AuthError
-				if !errors.As(got, &authErr) {
+				if _, ok := errors.AsType[*apperrors.AuthError](got); !ok {
 					t.Errorf("error type = %T, want *AuthError", got)
 				}
 			case "notfound":
-				var nfErr *apperrors.NotFoundError
-				if !errors.As(got, &nfErr) {
+				if _, ok := errors.AsType[*apperrors.NotFoundError](got); !ok {
 					t.Errorf("error type = %T, want *NotFoundError", got)
 				}
 			case "ratelimit":
-				var rlErr *apperrors.RateLimitError
-				if !errors.As(got, &rlErr) {
+				if _, ok := errors.AsType[*apperrors.RateLimitError](got); !ok {
 					t.Errorf("error type = %T, want *RateLimitError", got)
 				}
 			case "generic":
-				var authErr *apperrors.AuthError
-				var nfErr *apperrors.NotFoundError
-				var rlErr *apperrors.RateLimitError
-				if errors.As(got, &authErr) || errors.As(got, &nfErr) || errors.As(got, &rlErr) {
+				_, isAuth := errors.AsType[*apperrors.AuthError](got)
+				_, isNF := errors.AsType[*apperrors.NotFoundError](got)
+				_, isRL := errors.AsType[*apperrors.RateLimitError](got)
+				if isAuth || isNF || isRL {
 					t.Errorf("error type = %T, want generic (non-app) error", got)
 				}
 			}

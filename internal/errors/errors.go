@@ -33,23 +33,19 @@ func ExitCode(err error) int {
 		return 0
 	}
 
-	var inputErr *InvalidInputError
-	var authErr *AuthError
-	var nfErr *NotFoundError
-	var rlErr *RateLimitError
-
-	switch {
-	case errors.As(err, &inputErr):
+	if _, ok := errors.AsType[*InvalidInputError](err); ok {
 		return ExitInvalidInput
-	case errors.As(err, &authErr):
-		return ExitAuth
-	case errors.As(err, &nfErr):
-		return ExitNotFound
-	case errors.As(err, &rlErr):
-		return ExitRateLimit
-	default:
-		return ExitInternal
 	}
+	if _, ok := errors.AsType[*AuthError](err); ok {
+		return ExitAuth
+	}
+	if _, ok := errors.AsType[*NotFoundError](err); ok {
+		return ExitNotFound
+	}
+	if _, ok := errors.AsType[*RateLimitError](err); ok {
+		return ExitRateLimit
+	}
+	return ExitInternal
 }
 
 // InvalidInputError indicates that user-supplied input failed validation.
